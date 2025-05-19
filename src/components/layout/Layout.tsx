@@ -23,7 +23,9 @@ export default function Layout({
             : 'w-auto max-w-sm border-2 border-blue-500'
         } 
         h-screen 
-        mx-auto my-0`,
+        mx-auto my-0
+        bg-[#212121]
+        `,
         className
       )}
     >

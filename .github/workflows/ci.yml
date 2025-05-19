@@ -16,6 +16,9 @@ jobs:
       # 2. pnpm 설치
       - name: Install pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9  # pnpm 버전 설정
+          run_install: false 
 
       # 3. Node 버전 셋업
       - name: Setup Node

@@ -20,7 +20,7 @@ export default function Layout({
         ${
           fullScreen
             ? 'w-full max-w-none'
-            : 'w-auto max-w-xs border-2 border-blue-500'
+            : 'w-auto max-w-sm border-2 border-blue-500'
         } 
         h-screen 
         mx-auto my-0`,

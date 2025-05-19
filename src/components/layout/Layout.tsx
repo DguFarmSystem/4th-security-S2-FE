@@ -17,11 +17,7 @@ export default function Layout({
     <main
       className={mergeClassNames(
         `flex ${direction === 'column' ? 'flex-col' : 'flex-row'} 
-        ${
-          fullScreen
-            ? 'w-full max-w-none'
-            : 'w-auto max-w-sm border-2 border-blue-500'
-        } 
+        ${fullScreen ? 'w-full max-w-none' : 'w-auto max-w-sm'} 
         h-screen 
         mx-auto my-0
         bg-[#212121]

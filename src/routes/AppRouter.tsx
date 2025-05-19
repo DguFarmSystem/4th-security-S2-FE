@@ -13,6 +13,7 @@ import Loader from '@/components/status/loading/Loader';
 import { ROUTE_TYPE } from '@/constants/path';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import Layout from '@/components/layout/Layout';
 
 const createAuthRouter = (routeType: ROUTE_TYPE, children: RouteObject[]) => {
   const authRouter = children.map((child: RouteObject) => ({
@@ -29,7 +30,9 @@ const router = createBrowserRouter([
       <UnknownErrorBoundary>
         <APIErrorBoundary>
           <Suspense fallback={<Loader />}>
-            <Outlet />
+            <Layout direction="column">
+              <Outlet />
+            </Layout>
           </Suspense>
         </APIErrorBoundary>
       </UnknownErrorBoundary>

@@ -17,10 +17,14 @@ export default function Layout({
     <main
       className={mergeClassNames(
         `flex ${direction === 'column' ? 'flex-col' : 'flex-row'} 
-        ${fullScreen ? 'w-full max-w-none' : 'w-auto max-w-[480px]'} 
+        ${
+          fullScreen
+            ? 'w-full max-w-none'
+            : 'w-auto max-w-xs border-2 border-blue-500'
+        } 
         h-screen 
         mx-auto my-0`,
-        className,
+        className
       )}
     >
       {children}

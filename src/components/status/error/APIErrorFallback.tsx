@@ -1,10 +1,9 @@
 import { FallbackProps } from 'react-error-boundary';
 import { isAxiosError } from 'axios';
-import { Navigate } from 'react-router-dom';
 import { getAPIErrorInfo } from '@/utils/getApiErrorInfo';
 import ErrorPage from './ErrorPage';
-import { PATH } from '@/constants/path';
 import { useAuthStore } from '@/stores/authStore';
+import WelcomePage from '@/components/landing/WelcomePage';
 
 export const APIErrorFallback = ({
   error,
@@ -17,7 +16,7 @@ export const APIErrorFallback = ({
 
     if (errorInfo.status === '401') {
       clearAuth();
-      return <Navigate to={PATH.WELCOME} replace />;
+      return <WelcomePage />;
     }
 
     return (

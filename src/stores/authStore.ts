@@ -16,7 +16,7 @@ interface AuthState {
 const initialState = {
   accessToken: '',
   isUnivAuthenticated: false,
-  isGuest: false,
+  isGuest: true,
   hasVisited: false,
 };
 

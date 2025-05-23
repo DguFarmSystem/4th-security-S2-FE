@@ -19,8 +19,7 @@ export default function Layout({
         `flex ${direction === 'column' ? 'flex-col' : 'flex-row'} 
         ${fullScreen ? 'w-full max-w-none' : 'w-auto max-w-sm'} 
         h-screen 
-        mx-auto my-0
-        bg-[#212121]
+        mx-auto my-0        
         `,
         className
       )}

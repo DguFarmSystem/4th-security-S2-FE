@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom';
 import RootPage from '@/pages/RootPage';
+import ArticleDetailPage from '@/pages/ArticleDetailPage';
 import SomethingWentWrongPage from '@/components/status/error/SomethingWentWrongPage';
 import { UnknownErrorBoundary } from '@/components/status/error/UnknownErrorBoundary';
 import { APIErrorBoundary } from '@/components/status/error/APIErrorBoundary';
@@ -43,7 +44,11 @@ const router = createBrowserRouter([
         element: <RootPage />,
       },
       ...createAuthRouter('PRIVATE', [{}]),
-      ...createAuthRouter('PUBLIC', [{}]),
+      ...createAuthRouter('PUBLIC', [{
+        path: '/article/:id',
+        element: <ArticleDetailPage />,
+
+      }]),
       {
         path: '*',
         element: <SomethingWentWrongPage />,

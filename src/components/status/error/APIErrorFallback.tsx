@@ -3,7 +3,8 @@ import { isAxiosError } from 'axios';
 import { getAPIErrorInfo } from '@/utils/getApiErrorInfo';
 import ErrorPage from './ErrorPage';
 import { useAuthStore } from '@/stores/authStore';
-import WelcomePage from '@/components/landing/WelcomePage';
+import { Navigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 export const APIErrorFallback = ({
   error,
@@ -16,7 +17,7 @@ export const APIErrorFallback = ({
 
     if (errorInfo.status === '401') {
       clearAuth();
-      return <WelcomePage />;
+      return <Navigate to={PATH.WELCOME} replace />;
     }
 
     return (

@@ -1,5 +1,9 @@
 :root {
+  --color-pink-500: #f5179a;
+  --color-black-500: #212121;
 }
 
 @theme inline {
+  --color-primary: var(--color-pink-500);
+  --color-background: var(--color-black-500);
 }

@@ -35,22 +35,34 @@ export default function SplashGate({
 }
 
 function SplashScreen() {
+  const DURATION_SECOND = 0.5;
+  const SPLASH_CONTENT_DELAY_SECOND = 0.3;
+  const SPLASH_TEXT_DELAY_SECOND = 1;
+
   const splashWrapperProps = {
     initial: { opacity: 1 },
     exit: { opacity: 0 },
-    transition: { duration: 0.5, ease: 'easeInOut' },
+    transition: { duration: DURATION_SECOND, ease: 'easeInOut' },
   };
 
   const splashContentProps = {
     initial: { scale: 0.8, opacity: 0 },
     animate: { scale: 1, opacity: 1 },
-    transition: { duration: 0.5, ease: 'easeOut' },
+    transition: {
+      duration: DURATION_SECOND,
+      ease: 'easeOut',
+      delay: SPLASH_CONTENT_DELAY_SECOND,
+    },
   };
 
   const splashTextProps = {
     initial: { y: 20, opacity: 0 },
     animate: { y: 0, opacity: 1 },
-    transition: { delay: 0.3, duration: 0.5, ease: 'easeOut' },
+    transition: {
+      delay: SPLASH_TEXT_DELAY_SECOND,
+      duration: DURATION_SECOND,
+      ease: 'easeOut',
+    },
   };
 
   return (

@@ -4,7 +4,7 @@ import {
   OAuthConfig,
 } from '@/types/oauth/oauthType';
 
-export function useOauth() {
+export const useOauth = () => {
   const oauthConfig: Record<OAuthProvider, OAuthConfig> = {
     [OauthProvider.KAKAO]: {
       baseUrl: 'https://kauth.kakao.com/oauth/authorize',
@@ -24,4 +24,4 @@ export function useOauth() {
   };
 
   return { handleOauth };
-}
+};

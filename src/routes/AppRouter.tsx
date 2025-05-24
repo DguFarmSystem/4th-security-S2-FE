@@ -20,6 +20,7 @@ import KakaoLogin from '@/pages/auth/oauth/KakaoLogin';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import SplashGate from '@/components/landing/SplashGate';
+import ArticleDetailPage from '@/pages/ArticleDetailPage';
 
 const createAuthRouter = (routeType: ROUTE_TYPE, children: RouteObject[]) => {
   const authRouter = children.map((child: RouteObject) => ({
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
         {
           path: PATH.OAUTH_CALLBACK(OauthProvider.KAKAO),
           element: <KakaoLogin />,
+        },
+        {
+          path: '/article/:id',
+          element: <ArticleDetailPage />,
         },
       ]),
       ...createAuthRouter('PRIVATE', [

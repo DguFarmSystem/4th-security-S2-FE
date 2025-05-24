@@ -38,7 +38,12 @@ export default function WelcomePage() {
   const titleProps = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, delay: TITLE_DELAY_SECOND },
+    transition: {
+      duration: 0.5,
+      delay: TITLE_DELAY_SECOND,
+      type: 'spring',
+      stiffness: 100,
+    },
   };
 
   const buttonProps = {

@@ -25,6 +25,7 @@ export default function WelcomePage() {
     navigate(PATH.ROOT);
   };
 
+  const DURATION_SECOND = 0.5;
   const LOGO_DELAY_SECOND = 0.5;
   const TITLE_DELAY_SECOND = 0.8;
   const BUTTON_DELAY_SECOND = 1.2;
@@ -32,14 +33,14 @@ export default function WelcomePage() {
   const logoProps = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, delay: LOGO_DELAY_SECOND },
+    transition: { duration: DURATION_SECOND, delay: LOGO_DELAY_SECOND },
   };
 
   const titleProps = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     transition: {
-      duration: 0.5,
+      duration: DURATION_SECOND,
       delay: TITLE_DELAY_SECOND,
       type: 'spring',
       stiffness: 100,
@@ -49,7 +50,7 @@ export default function WelcomePage() {
   const buttonProps = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, delay: BUTTON_DELAY_SECOND },
+    transition: { duration: DURATION_SECOND, delay: BUTTON_DELAY_SECOND },
   };
 
   return (

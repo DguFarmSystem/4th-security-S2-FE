@@ -1,7 +1,7 @@
-// components/ImageCarousel.tsx
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState, useCallback } from "react";
 import { twMerge } from "tailwind-merge";
+import ImageHeader from "./ImageHeader";
 
 interface ImageCarouselProps {
   images: string[];
@@ -29,6 +29,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
   return (
     <div className="w-full relative">
+      <ImageHeader />
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {images.map((src, i) => (

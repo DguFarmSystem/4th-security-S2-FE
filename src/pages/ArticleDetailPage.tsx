@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import PortfoiloImage from "@/assets/images/PortfolioImage.webp";
-import ImageCarousel from "@/components/article/ImageCarousel";
+import ImageCarousel from "@/components/article/image/ImageCarousel";
 import FormButton from "@/components/article/FormButton";
 import HeartContainer from "@/components/article/HeartContainer";
 import CommentContainer from "@/components/article/comment/CommentContainer";

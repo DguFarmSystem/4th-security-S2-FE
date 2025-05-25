@@ -43,7 +43,7 @@ export default function FormButton({
     <button
       className={twMerge(
         "w-full flex-shrink-0 rounded-[5px] border-[0.3px]", 
-        "flex justify-start items-center p-[10px] gap-[5px]", 
+        "flex justify-start items-center px-[10px] py-2 gap-[5px]", 
         themeColorClass,
       )}
       onClick={handleFormButtonClick}

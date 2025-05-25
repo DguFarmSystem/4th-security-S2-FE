@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import PortfoiloImage from "@/assets/images/PortfolioImage.webp";
 import FormButton from "@/components/article/FormButton";
+import HeartContainer from "@/components/article/HeartContainer";
+
 
 const dummyData = {
   title: "웹사이트 개발자 찾아요.",
@@ -24,6 +26,8 @@ function parseData(data: string) {
 
 export default function ArticleDetailPage() {
   const [data, setData] = useState<typeof dummyData | null>(null);
+  const [isHeartClicked, setIsHeartClicked] = useState(false);
+  const [heartCount, setHeartCount] = useState(dummyData.likeCount);  
 
   useEffect(() => {
     setData(dummyData);
@@ -77,14 +81,24 @@ export default function ArticleDetailPage() {
             </p>
           </div>
         </div>
+        
+        {/* 내용 */}
+        <div className="w-full flex flex-col items-center justify-between pb-3.5">
+          <p className="text-xs leading-5 w-full min-h-[68px] pt-4">{data.content}</p>
 
-        <p className="text-xs leading-5 w-full min-h-[68px]">{data.content}</p>
+          <FormButton
+            formStatus="신청하기"
+            handleFormButtonClick={() => {
+              console.log("신청하기 버튼 클릭");
+            }}
+          />
+        </div>
 
-        <FormButton
-          formStatus="신청하기"
-          handleFormButtonClick={() => {
-            console.log("신청하기 버튼 클릭");
-          }}
+        <HeartContainer
+          isHeartClicked={isHeartClicked}
+          setIsHeartClicked={setIsHeartClicked}
+          heartCount={heartCount}
+          setHeartCount={setHeartCount}
         />
       </div>
     </div>

@@ -6,7 +6,6 @@ import { verificationCodeFormatTime } from '@/utils/formatTime';
 
 interface JoinFormProps {
   onSubmit: (data: FormValues) => void;
-  isLoading?: boolean;
 }
 
 interface FormValues {
@@ -18,12 +17,15 @@ interface FormValues {
 const EMAIL_REGEX = /^[A-Z0-9._%+-]+@(dgu\.edu|dgu\.ac\.kr)$/i;
 const VERIFICATION_TIME_SECONDS = 3 * 60;
 
-export default function JoinForm({ onSubmit, isLoading }: JoinFormProps) {
-  const [isEmailVerificationSent, setIsEmailVerificationSent] = useState(false);
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
-  const [remainingTime, setRemainingTime] = useState(VERIFICATION_TIME_SECONDS);
-  const [isTimerActive, setIsTimerActive] = useState(false);
-  const showVerificationCode = isEmailVerificationSent && !isEmailVerified;
+export default function JoinForm({ onSubmit }: JoinFormProps) {
+  const [formStatus, setFormStatus] = useState({
+    isEmailVerificationSent: false,
+    isEmailVerified: false,
+    remainingTime: VERIFICATION_TIME_SECONDS,
+    isTimerActive: false,
+  });
+  const showVerificationCode =
+    formStatus.isEmailVerificationSent && !formStatus.isEmailVerified;
 
   const {
     register,
@@ -44,19 +46,25 @@ export default function JoinForm({ onSubmit, isLoading }: JoinFormProps) {
   useEffect(() => {
     let timer: ReturnType<typeof setInterval>;
 
-    if (isTimerActive && remainingTime > 0) {
+    if (formStatus.isTimerActive && formStatus.remainingTime > 0) {
       timer = setInterval(() => {
-        setRemainingTime((prev) => prev - 1);
+        setFormStatus((prev) => ({
+          ...prev,
+          remainingTime: prev.remainingTime - 1,
+        }));
       }, 1000);
-    } else if (remainingTime === 0) {
+    } else if (formStatus.remainingTime === 0) {
       clearErrors('verificationCode');
-      setIsTimerActive(false);
+      setFormStatus((prev) => ({
+        ...prev,
+        isTimerActive: false,
+      }));
     }
 
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [isTimerActive, remainingTime, clearErrors]);
+  }, [formStatus.isTimerActive, formStatus.remainingTime, clearErrors]);
 
   return (
     <form
@@ -97,6 +105,12 @@ export default function JoinForm({ onSubmit, isLoading }: JoinFormProps) {
               value: EMAIL_REGEX,
               message: '@dgu.edu 또는 @dgu.ac.kr 도메인만 사용 가능합니다',
             },
+            validate: (value) => {
+              if (value && !formStatus.isEmailVerificationSent) {
+                return '이메일 인증을 진행해주세요';
+              }
+              return true;
+            },
           })}
           placeholder="웹메일 주소를 입력하세요"
           description={
@@ -106,15 +120,15 @@ export default function JoinForm({ onSubmit, isLoading }: JoinFormProps) {
           }
           errorMessage={errors.email?.message}
           className="pr-[90px] focus:ring-primary"
-          disabled={isEmailVerified}
+          disabled={formStatus.isEmailVerified}
         />
         <button
           type="button"
           onClick={handleVerifyEmail}
           className="absolute right-0 top-0 h-9 px-4 w-[90px] bg-gray-500 hover:enabled:bg-gray-500/90 rounded-[3px] disabled:cursor-not-allowed whitespace-nowrap"
-          disabled={isEmailVerified}
+          disabled={formStatus.isEmailVerified}
         >
-          {isEmailVerified ? '인증 완료' : '인증 요청'}
+          {formStatus.isEmailVerified ? '인증 완료' : '인증 요청'}
         </button>
 
         {showVerificationCode && (
@@ -126,26 +140,26 @@ export default function JoinForm({ onSubmit, isLoading }: JoinFormProps) {
               placeholder="인증번호를 입력하세요"
               errorMessage={errors.verificationCode?.message}
               className="pr-[140px] focus:ring-primary"
-              disabled={remainingTime === 0}
+              disabled={formStatus.remainingTime === 0}
             />
             <div className="absolute right-0 top-0 flex items-center gap-2">
               <span className="text-sm text-gray-400">
-                {verificationCodeFormatTime(remainingTime)}
+                {verificationCodeFormatTime(formStatus.remainingTime)}
               </span>
               <button
                 type="button"
                 onClick={handleVerifyCode}
                 className={`h-9 px-4 w-[90px] rounded-[3px] ${
-                  remainingTime === 0
+                  formStatus.remainingTime === 0
                     ? 'bg-gray-500 text-gray-200 cursor-not-allowed'
                     : 'bg-primary hover:bg-primary/90'
                 }`}
-                disabled={remainingTime === 0}
+                disabled={formStatus.remainingTime === 0}
               >
                 확인
               </button>
             </div>
-            {remainingTime === 0 && (
+            {formStatus.remainingTime === 0 && (
               <p className="text-red-500 text-sm mt-1">
                 인증 시간이 만료되었습니다. 다시 인증요청을 진행해주세요.
               </p>
@@ -153,19 +167,26 @@ export default function JoinForm({ onSubmit, isLoading }: JoinFormProps) {
           </div>
         )}
 
-        {isEmailVerified && (
+        {formStatus.isEmailVerified && (
           <p className="text-primary text-md">이메일 인증이 완료되었습니다.</p>
         )}
       </div>
 
-      <Button type="submit" className="mt-auto" disabled={isLoading}>
+      <Button type="submit" className="mt-auto">
         가입하고 시작하기
       </Button>
     </form>
   );
 
   function handleDguAuth(data: FormValues) {
-    if (!isEmailVerified) {
+    if (!formStatus.isEmailVerificationSent) {
+      setError('email', {
+        message: '이메일 인증을 진행해주세요',
+      });
+      return;
+    }
+
+    if (!formStatus.isEmailVerified) {
       setError('verificationCode', {
         message: '인증번호를 확인해주세요.',
       });
@@ -184,10 +205,13 @@ export default function JoinForm({ onSubmit, isLoading }: JoinFormProps) {
     }
     clearErrors('email');
     clearErrors('verificationCode');
-    setIsEmailVerificationSent(true);
-    setRemainingTime(VERIFICATION_TIME_SECONDS);
-    setIsEmailVerified(false);
-    setIsTimerActive(true);
+    setFormStatus((prev) => ({
+      ...prev,
+      isEmailVerificationSent: true,
+      remainingTime: VERIFICATION_TIME_SECONDS,
+      isEmailVerified: false,
+      isTimerActive: true,
+    }));
 
     // 실제 이메일 인증번호 발송 API 호출 필요
   }
@@ -201,16 +225,19 @@ export default function JoinForm({ onSubmit, isLoading }: JoinFormProps) {
       return;
     }
 
-    if (remainingTime === 0) {
+    if (formStatus.remainingTime === 0) {
       setError('verificationCode', {
         message: '인증 시간이 만료되었습니다. 다시 인증요청을 진행해주세요.',
       });
       return;
     }
 
-    // 실제 인증번호 확인 API 호출 및 성공시 아래 로직 수행
+    // 실제 인증번호 확인 API 호출 필요 및 성공시 아래 로직 수행
     clearErrors('verificationCode');
-    setIsTimerActive(false);
-    setIsEmailVerified(true);
+    setFormStatus((prev) => ({
+      ...prev,
+      isTimerActive: false,
+      isEmailVerified: true,
+    }));
   }
 }

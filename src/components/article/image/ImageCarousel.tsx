@@ -29,7 +29,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
   return (
     <div className="w-full relative">
-      <ImageHeader />
+      <ImageHeader isEditable={true} />
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {images.map((src, i) => (

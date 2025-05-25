@@ -6,13 +6,13 @@ export const InputVariants = cva(
   `
   flex items-center outline-none
   w-full min-w-0 h-9 rounded-[3px] px-3 py-1 transition-colors bg-transparent ring-1 ring-gray-300
-  disabled:pointer-events-none disabled:cursor-not-allowed
+  disabled:cursor-not-allowed
   `,
   {
     variants: {
       variant: {
         default: 'focus:ring-black',
-        error: 'ring-red-500 bg-red-50 focus:ring-red-500',
+        error: 'ring-red-500  focus:ring-red-500',
         readOnly: 'pointer-events-none ring-0 p-0',
       },
     },
@@ -26,13 +26,25 @@ interface InputProps
   extends VariantProps<typeof InputVariants>,
     InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  labelClassName?: string;
   description?: string;
   errorMessage?: string;
   className?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, description, errorMessage, variant, className, ...props }, ref) => {
+  (
+    {
+      label,
+      labelClassName,
+      description,
+      errorMessage,
+      variant,
+      className,
+      ...props
+    },
+    ref
+  ) => {
     const isError = !!errorMessage?.trim();
     const displayInputType = isError ? 'error' : variant;
 
@@ -40,9 +52,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className="flex flex-col gap-1">
         {label && (
           <label
-            className={`text-sm ${
-              variant === 'readOnly' ? 'text-gray-400' : 'text-gray-700'
-            }`}
+            className={mergeClassNames(
+              'text-sm',
+              variant === 'readOnly' ? 'text-gray-400' : 'text-gray-700',
+              labelClassName
+            )}
           >
             {label}
           </label>

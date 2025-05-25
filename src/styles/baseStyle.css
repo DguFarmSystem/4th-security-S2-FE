@@ -2,7 +2,6 @@
   /* 서비스 전체 기본 스타일 지정 */
   html {
     font-family: Pretendard, sans-serif;
-    background-color: var(--color-background);
     color: var(--color-white);
   }
 

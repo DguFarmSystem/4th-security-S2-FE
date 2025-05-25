@@ -20,6 +20,7 @@ export default function Layout({
         ${fullScreen ? 'w-full max-w-none' : 'w-auto max-w-sm'} 
         h-screen 
         mx-auto my-0        
+        bg-background
         `,
         className
       )}

@@ -13,7 +13,7 @@ export const ButtonVariants = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-primary hover:opacity-90 rounded-md text-md',
+        primary: 'bg-primary hover:bg-primary/90 rounded-md text-md',
       },
       size: {
         default: 'h-[3.4375rem] px-4 py-2 has-[>svg]:px-3',

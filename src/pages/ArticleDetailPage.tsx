@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PortfoiloImage from "@/assets/images/PortfolioImage.webp";
+import ImageCarousel from "@/components/article/ImageCarousel";
 import FormButton from "@/components/article/FormButton";
 import HeartContainer from "@/components/article/HeartContainer";
 import CommentContainer from "@/components/article/comment/CommentContainer";
@@ -46,16 +47,7 @@ export default function ArticleDetailPage() {
 
   return (
     <div className="text-white flex flex-col items-start">
-      {/* 썸네일 */}
-      <div className="relative w-full flex-shrink-0 aspect-[385.593/260] flex items-center justify-center overflow-hidden">
-        <img
-          src={PortfoiloImage}
-          alt="포트폴리오 이미지"
-          className="w-full object-contain"
-        />
-        <div className="absolute top-0 left-0 w-full h-[60px] bg-gradient-to-b from-black/30 to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-full h-[60px] bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
-      </div>
+      <ImageCarousel images={[PortfoiloImage, PortfoiloImage, PortfoiloImage]} />
 
       <div className="flex flex-col w-full px-[21px] items-start">
         {/* 프로필 */}
@@ -78,7 +70,7 @@ export default function ArticleDetailPage() {
         {/* 제목, 태그 */}
         <div className="py-2 flex flex-col gap-2 w-full">
           <h1 className="text-lg font-bold">{data.title}</h1>
-          <div className="flex gap-2">
+          <div className="flex gap-1">
             <div className="bg-[#B281F4] rounded-[3px] flex w-9 justify-center items-center">
               <p className="text-[8px]">{data.tags[0]}</p>
             </div>

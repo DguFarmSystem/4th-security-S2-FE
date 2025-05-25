@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PortfoiloImage from "@/assets/images/PortfolioImage.webp";
 import FormButton from "@/components/article/FormButton";
 import HeartContainer from "@/components/article/HeartContainer";
-
+import CommentContainer from "@/components/article/comment/CommentContainer";
 
 const dummyData = {
   title: "웹사이트 개발자 찾아요.",
@@ -14,6 +14,15 @@ const dummyData = {
   content: "간단한 포트폴리오 웹사이트를 함께 제작해주실 분을 찾고 있어요! 디자인은 어느 정도 되어 있고, 프론트엔드로 구현만 도와주시면 됩니다.",
   likeCount: 10,
   isLikeClicked: false,
+  comments: [
+    {
+      id: 1,
+      profile: null,
+      author: "꾸기",
+      date: "2025-05-25T12:00:00Z",
+      content: "리액트 기반 프로젝트 경험이 많습니다 :)\n디자이너 분들과 협업도 여러 번 해봤고,\n제안해주신 내용 충분히 가능할 것 같아요.\n함께 좋은 결과 만들어보고 싶습니다!"
+    }
+  ]
 };
 
 function parseData(data: string) {
@@ -101,6 +110,10 @@ export default function ArticleDetailPage() {
           setHeartCount={setHeartCount}
         />
       </div>
+      
+      {/* 댓글 */}
+      <CommentContainer commentData={data.comments} />
+      
     </div>
   );
 }

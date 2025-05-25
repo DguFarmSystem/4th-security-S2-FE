@@ -1,6 +1,8 @@
 @layer base {
+  /* 서비스 전체 기본 스타일 지정 */
   html {
     font-family: Pretendard, sans-serif;
+    color: var(--color-white);
   }
 
   /* border 테두리 기본 색상 지정 */

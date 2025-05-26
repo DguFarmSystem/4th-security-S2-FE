@@ -14,6 +14,8 @@ export default function EditPageFooter({
     <div className="flex flex-col w-full">
       <div className="w-full flex justify-start items-center px-[25px] py-[14px] border-t-[0.1px] border-[#505967] gap-4 ">
         <button
+          type="button"
+          aria-label="이미지 업로드"
           onClick={onImageUpload}
           className="flex items-center justify-center"
         >
@@ -24,6 +26,8 @@ export default function EditPageFooter({
           />
         </button>
         <button
+          type="button"
+          aria-label="질문 추가"
           onClick={onQuestionAdd}
           className="ml-3 flex items-center justify-center"
         >

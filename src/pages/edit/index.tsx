@@ -67,7 +67,7 @@ export default function EditPage() {
         */}
         <div className='w-full'>
           <EditPageFooter
-            onImageUpload={() => document.querySelector('input[type="file"]')?.click()}
+            onImageUpload={() => (document.querySelector('input[type="file"]') as HTMLInputElement | null)?.click()}
             onQuestionAdd={() => console.log('질문 추가')}
           />
         </div>

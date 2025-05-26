@@ -25,4 +25,18 @@
   textarea:focus {
     outline: none;
   }
+
+  /* input 자동완성 시 스타일 유지 */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition-delay: 9999s;
+
+    /* 텍스트 색상 유지 */
+    -webkit-text-fill-color: inherit !important;
+
+    /* 공통 Input 컴포넌트의 기본 스타일과 동일하게 ring-1 ring-gray-300 (#d1d5db) 적용 */
+    -webkit-box-shadow: 0 0 0 1px #d1d5db inset !important;
+  }
 }

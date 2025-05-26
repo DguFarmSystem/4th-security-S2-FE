@@ -7,6 +7,7 @@ import IconKakaoLogin from '@/assets/icons/IconKakaoLogin.svg?react';
 import IconRightChevron from '@/assets/icons/IconRightChevron.svg?react';
 import { motion } from 'framer-motion';
 import { OauthProvider } from '@/types/oauth/oauthType';
+import WelcomePageLayout from './WelcomePageLayout';
 // import { useOauth } from '@/hooks/useOauth';
 
 export default function WelcomePage() {
@@ -54,7 +55,7 @@ export default function WelcomePage() {
   };
 
   return (
-    <div className="h-full bg-primary flex flex-col justify-center items-center px-6 pb-16 pt-32">
+    <WelcomePageLayout>
       <motion.div {...logoProps}>
         <IconMainLogo />
       </motion.div>
@@ -77,6 +78,6 @@ export default function WelcomePage() {
           <span className="flex-1">로그인 없이 둘러보기</span>
         </Button>
       </motion.div>
-    </div>
+    </WelcomePageLayout>
   );
 }

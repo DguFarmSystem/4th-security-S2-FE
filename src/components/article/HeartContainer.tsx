@@ -1,7 +1,7 @@
-import HeartIcon from "./HeartIcon";
+import IconHeart from "./IconHeart";
 import { useState, useEffect, useRef } from "react";
 
-interface IHeartIconProps {
+interface IHeartContainerProps {
   isHeartClicked: boolean;
   setIsHeartClicked: React.Dispatch<React.SetStateAction<boolean>>;
   heartCount: number;
@@ -13,7 +13,7 @@ export default function HeartContainer({
   setIsHeartClicked,
   heartCount,
   setHeartCount,
-}: IHeartIconProps) {
+}: IHeartContainerProps) {
   const [animate, setAnimate] = useState(false);
   const timeoutRef = useRef<number | null>(null);
 
@@ -49,7 +49,7 @@ export default function HeartContainer({
   return (
     <div className="w-full flex items-center justify-start py-2">
       <button onClick={handleClick} style={style}>
-        <HeartIcon isHeartClicked={isHeartClicked} />
+        <IconHeart isHeartClicked={isHeartClicked} />
       </button>
       <p className="text-xs text-[#E8EBED] ml-2">
         좋아요 {heartCount}

@@ -88,7 +88,7 @@ export default function ArticleDetailPage() {
           <p className="text-xs leading-5 w-full min-h-[68px] pt-4">{data.content}</p>
 
           <FormButton
-            formStatus="신청하기"
+            formStatus="임시저장"
             handleFormButtonClick={() => {
               console.log("신청하기 버튼 클릭");
             }}

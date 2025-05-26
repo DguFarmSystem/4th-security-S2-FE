@@ -9,6 +9,8 @@ import { motion } from 'framer-motion';
 import TabAll from '@/components/landing/TabAll';
 import TabTalentDonation from '@/components/landing/TabTalentDonation';
 import TabPaidWork from '@/components/landing/TabPaidWork';
+import { useModal } from '@/hooks/useModal';
+import Modal from '@/components/common/modal/Modal';
 
 const TabKey = {
   TAB_ALL: 'TAB_ALL',
@@ -60,6 +62,8 @@ export default function LandingPage() {
   );
 
   function BottomMenu() {
+    /* 아래 모달의 경우는 1차적으로 디자인 내용 확인을 위해 넣은 모달입니다. (추후 로직에 따라 수정될 예정입니다.) */
+    const { isOpen, openModal, closeModal } = useModal();
     const BOTTOM_MENU = [
       {
         Icon: IconMenuHeart,
@@ -83,17 +87,29 @@ export default function LandingPage() {
       },
     ];
     return (
-      <div className="flex justify-around sticky bottom-0 py-2">
-        {BOTTOM_MENU.map((menu) => (
-          <div
-            key={menu.label}
-            className="flex flex-col items-center cursor-pointer"
-          >
-            <menu.Icon className="size-6" />
-            <span className="text-sm">{menu.label}</span>
+      <>
+        <div className="flex justify-around sticky bottom-0 py-2">
+          {BOTTOM_MENU.map((menu) => (
+            <div
+              key={menu.label}
+              className="flex flex-col items-center cursor-pointer"
+              onClick={openModal}
+            >
+              <menu.Icon className="size-6" />
+              <span className="text-sm">{menu.label}</span>
+            </div>
+          ))}
+        </div>
+        <Modal isOpen={isOpen} onClose={closeModal}>
+          <div className="w-full h-full bg-gray-700 flex flex-col items-center justify-center rounded-xl">
+            <h3>아직 열리지 않은 기능이에요.</h3>
+            <h3>더 좋은 모습으로 곧 찾아올게요!</h3>
+            <button onClick={closeModal} className="mt-5 underline">
+              확인
+            </button>
           </div>
-        ))}
-      </div>
+        </Modal>
+      </>
     );
   }
 }

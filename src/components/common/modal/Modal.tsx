@@ -19,11 +19,10 @@ export default function Modal({ isOpen, onClose, children }: IModalProps) {
   useScrollLockEffect(isOpen); // 스크롤 잠금 효과
 
   const modalElement = document.getElementById('modal') as HTMLElement;
-
   if (!modalElement) return null;
 
   return createPortal(
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       {isOpen && (
         <ModalLayout>
           <Overlay />
@@ -63,7 +62,7 @@ export default function Modal({ isOpen, onClose, children }: IModalProps) {
   function ModalContent() {
     return (
       <motion.div
-        className="relative z-50 p-6 bg-white rounded-default"
+        className="relative z-50  w-[300px] h-[230px]"
         ref={modalRef}
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{

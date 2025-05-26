@@ -20,7 +20,8 @@ import KakaoLogin from '@/pages/auth/oauth/KakaoLogin';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import SplashGate from '@/components/landing/SplashGate';
-import ArticleDetailPage from '@/pages/ArticleDetailPage';
+import ArticleDetailPage from '@/pages/article/ArticleDetailPage';
+import EditPage from '@/pages/edit';
 
 const createAuthRouter = (routeType: ROUTE_TYPE, children: RouteObject[]) => {
   const authRouter = children.map((child: RouteObject) => ({
@@ -71,6 +72,7 @@ const router = createBrowserRouter([
           element: <LandingPage />,
         },
         { path: PATH.SIGN_IN, element: <SignInPage /> },
+        { path: '/edit', element: <EditPage /> },
       ]),
 
       { path: '*', element: <SomethingWentWrongPage /> },

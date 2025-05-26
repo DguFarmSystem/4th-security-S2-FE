@@ -41,7 +41,7 @@ export function useTab<T>(defaultTab: T) {
 
   function TabsContainer({ children }: { children: React.ReactNode }) {
     return (
-      <div className="flex flex-col flex-1 w-full px-6 overflow-y-scroll scrollbar-hide">
+      <div className="flex flex-col flex-1 w-full px-6 py-3 overflow-y-scroll scrollbar-hide">
         {children}
       </div>
     );

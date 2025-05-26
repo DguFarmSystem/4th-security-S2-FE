@@ -8,13 +8,29 @@ export default function EditPage() {
   const handleBackClick = () => {
     navigate(-1);
   };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const title = formData.get('title');
+    const content = formData.get('content');
+
+    console.log('제목:', title);
+    console.log('내용:', content);
+
+    navigate(-1);
+  };
   return (
-    <div className="text-white flex flex-col items-start w-full">
+    <div className="text-white flex flex-col items-start w-full h-full">
       {/* 글쓰기 페이지 헤더 */}
       <EditPageHeader onBackClick={handleBackClick} />
-      <div className="flex flex-col items-start w-full px-[25px] pt-3">
+      <form onSubmit={handleSubmit} className='flex flex-col justify-between w-full h-full'>
+        <div className="flex flex-col items-start w-full px-[25px] pt-3">
         {/* 글쓰기 페이지 제목 */}
         <input
+          name="title"
+          autoFocus
           type="text"
           placeholder="제목을 입력해주세요."
           className={twMerge(
@@ -25,6 +41,8 @@ export default function EditPage() {
           )}
         />
         <textarea
+          name="content"
+          autoFocus
           placeholder={
             "필요한 작업을 요청해보세요.\n\n" + 
             "동국대 재학생에게 재능을 요청할 수 있는 공간입니다.\n" + 
@@ -36,18 +54,19 @@ export default function EditPage() {
             "placeholder:text-[#666] placeholder:font-normal pt-2"
           )}
         ></textarea>
-      </div>
-      {/* 글쓰기 페이지 푸터 */}
-      <div className='fixed bottom-0 w-sm'>
-        <EditPageFooter
-          onImageUpload={() => console.log('이미지 업로드')}
-          onQuestionAdd={() => console.log('질문 추가')}
-          onSaveClick={() => {
-            console.log('작성 완료');
-            navigate(-1);
-          }}
-        />
-      </div>
+        </div>
+        {/* 
+          * 글쓰기 페이지 푸터
+          * 폼 type="submit" 버튼은 푸터 컴포넌트 안에 위치함.
+        */}
+        <div className='w-full'>
+          <EditPageFooter
+            onImageUpload={() => console.log('이미지 업로드')}
+            onQuestionAdd={() => console.log('질문 추가')}
+          />
+        </div>
+      </form>
+
     </div>
   );
 }

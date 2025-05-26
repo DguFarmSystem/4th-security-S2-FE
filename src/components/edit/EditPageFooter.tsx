@@ -4,17 +4,15 @@ import IconFormEdit from "@/assets/icons/IconFormEdit.svg";
 interface IEditPageFooterProps {
   onImageUpload: () => void;
   onQuestionAdd: () => void;
-  onSaveClick: () => void;
 }
 
 export default function EditPageFooter({
   onImageUpload,
   onQuestionAdd,
-  onSaveClick
 }: IEditPageFooterProps) {
   return (
     <div className="flex flex-col w-full">
-      <div className="w-full flex justify-start items-center px-[25px] gap-4">
+      <div className="w-full flex justify-start items-center px-[25px] py-[14px] border-t-[0.1px] border-[#505967] gap-4 ">
         <button
           onClick={onImageUpload}
           className="flex items-center justify-center"
@@ -37,7 +35,7 @@ export default function EditPageFooter({
         </button>
       </div>
       <button
-        onClick={onSaveClick}
+        type="submit"
         className="w-full pt-[14px] pb-[15px] flex items-center justify-center bg-[#F5179A]"
       >
         <p className="text-white text-base">작성 완료</p>

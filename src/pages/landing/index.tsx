@@ -6,9 +6,9 @@ import IconMenuProfile from '@/assets/icons/IconMenuProfile.svg?react';
 import LandingPageLayout from '@/components/landing/LandingPageLayout';
 import { useTab } from '@/hooks/useTab';
 import { motion } from 'framer-motion';
-import TabAll from '@/components/landing/TabAll';
-import TabTalentDonation from '@/components/landing/TabTalentDonation';
-import TabPaidWork from '@/components/landing/TabPaidWork';
+import TabAll from '@/components/landing/tabs/TabAll';
+import TabTalentDonation from '@/components/landing/tabs/TabTalentDonation';
+import TabPaidWork from '@/components/landing/tabs/TabPaidWork';
 import { useModal } from '@/hooks/useModal';
 import Modal from '@/components/common/modal/Modal';
 

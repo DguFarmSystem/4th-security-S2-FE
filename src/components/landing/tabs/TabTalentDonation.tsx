@@ -1,3 +1,3 @@
 export default function TabTalentDonation() {
-  return <div>TabTalentDonation</div>;
+  return <>TabTalentDonation</>;
 }

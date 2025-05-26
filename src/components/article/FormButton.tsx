@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import FormCheckIcon from "./FormCheckIcon";
+import IconFormCheck from "./IconFormCheck";
 
 type formStatusType = "신청하기" | "임시저장" | "신청완료";
 interface IFormButtonProps {
@@ -47,7 +47,7 @@ export default function FormButton({
       onClick={handleFormButtonClick}
     >
       <div className="w-5 h-5">
-        <FormCheckIcon color={icon} />
+        <IconFormCheck color={icon} />
       </div>
       <p className={twMerge('text-[12px]', text)}>
         {buttonText}

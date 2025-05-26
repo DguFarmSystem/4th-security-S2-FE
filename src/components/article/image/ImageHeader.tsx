@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuModal from "./MenuModal";
-import HomeIcon from "@/assets/icons/HomeIcon.svg";
-import GoBackIcon from "@/assets/icons/GoBackIcon.svg";
-import MenuIcon from "@/assets/icons/MenuIcon.svg";
+import IconHome from "@/assets/icons/IconHome.svg";
+import IconGoBack from "@/assets/icons/IconGoBack.svg";
+import IconDotMenu from "@/assets/icons/IconDotMenu.svg";
 
 interface IImageHeaderProps {
   isEditable: boolean;
@@ -33,10 +33,10 @@ export default function ImageHeader({ isEditable = false }: IImageHeaderProps) {
     <div className="absolute top-[20px] left-0 px-[22px] z-10 flex flex-row items-center justify-between w-full">
       <div className="flex flex-row items-center gap-4">
         <button onClick={handleGoBackClick} className="flex items-center justify-center cursor-pointer">
-          <img src={GoBackIcon} alt="뒤로가기 아이콘" className="w-[17px] h-[25px]" />
+          <img src={IconGoBack} alt="뒤로가기 아이콘" className="w-[17px] h-[25px]" />
         </button>
         <button onClick={handleGoHomeClick} className="flex items-center justify-center cursor-pointer">
-          <img src={HomeIcon} alt="홈 아이콘" className="w-[16px] h-[25px] mt-1.5" />
+          <img src={IconHome} alt="홈 아이콘" className="w-[16px] h-[25px] mt-1.5" />
         </button>
       </div>
       {isEditable && (
@@ -46,7 +46,7 @@ export default function ImageHeader({ isEditable = false }: IImageHeaderProps) {
           className="flex items-center justify-center cursor-pointer"
           id="menu-button"
         >
-          <img src={MenuIcon} alt="메뉴 아이콘" className="w-[19px] h-[25px]" />
+          <img src={IconDotMenu} alt="메뉴 아이콘" className="w-[19px] h-[25px]" />
         </button>
       )}
       <MenuModal

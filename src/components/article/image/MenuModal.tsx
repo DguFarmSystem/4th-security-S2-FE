@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import EditIcon from "@/assets/icons/EditIcon.svg";
-import TrashIcon from "@/assets/icons/TrashIcon.svg";
+import IconEdit from "@/assets/icons/IconEdit.svg";
+import IconTrash from "@/assets/icons/IconTrash.svg";
 
 interface IMenuModalProps {
   isOpen: boolean;
@@ -59,7 +59,7 @@ export default function MenuModal({
             className="w-full flex items-center justify-between px-[14px]"
           >
             <p className="text-xs text-white">수정</p>
-            <img src={EditIcon} alt="수정 아이콘" className="w-[15px] h-[15px]" />
+            <img src={IconEdit} alt="수정 아이콘" className="w-[15px] h-[15px]" />
           </button>
         </li>
         <li>
@@ -71,7 +71,7 @@ export default function MenuModal({
             className="w-full flex items-center justify-between px-[14px]"
           >
             <p className="text-xs text-white">삭제</p>
-            <img src={TrashIcon} alt="삭제 아이콘" className="w-[15px] h-[15px]" />
+            <img src={IconTrash} alt="삭제 아이콘" className="w-[15px] h-[15px]" />
           </button>
         </li>
       </ul>

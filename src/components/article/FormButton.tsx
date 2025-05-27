@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import IconFormCheck from "./IconFormCheck";
+import FormCheckIcon from "./FormCheckIcon";
 
 type formStatusType = "신청하기" | "임시저장" | "신청완료";
 interface IFormButtonProps {
@@ -8,31 +8,33 @@ interface IFormButtonProps {
   handleFormButtonClick: () => void;
 }
 
-const themeClassMap = {
-  신청하기: {
-    border: "border-[#F5179A] shadow-[0_0_5px_0_#F5179A]",
-    text: "text-[#F5179A]",
-    icon: "#F5179A",
-  },
-  임시저장: {
-    border: "border-[#B281F4] shadow-[0_0_5px_0_#B281F4]",
-    text: "text-[#B281F4]",
-    icon: "#B281F4",
-  },
-  신청완료: {
-    border: "border-[#666666] shadow-[0_0_5px_0_#666666]",
-    text: "text-[#666666]",
-    icon: "#666666",
-  },
-};
-
 export default function FormButton({
   formStatus,
   handleFormButtonClick,
 }: IFormButtonProps) {
   const [buttonText, setButtonText] = useState<"" | formStatusType>("");
-  const { border, text, icon } = themeClassMap[formStatus];
   
+  const themeColorClass =
+    formStatus === "신청하기"
+      ? "border-[#F5179A] shadow-[0_0_5px_0_#F5179A]"
+      : formStatus === "임시저장"
+      ? "border-[#B281F4] shadow-[0_0_5px_0_#B281F4]"
+      : "border-[#666666] shadow-[0_0_5px_0_#666666]";
+
+  const textColorClass =
+    formStatus === "신청하기"
+      ? "text-[#F5179A]"
+      : formStatus === "임시저장"
+      ? "text-[#B281F4]"
+      : "text-[#666666]";
+
+  const buttonColor =
+    formStatus === "신청하기"
+      ? "#F5179A"
+      : formStatus === "임시저장"
+      ? "#B281F4"
+      : "#666666";
+
    useEffect(() => {
     setButtonText(formStatus);
   }, [formStatus]);
@@ -42,14 +44,14 @@ export default function FormButton({
       className={twMerge(
         "w-full flex-shrink-0 rounded-[5px] border-[0.3px]", 
         "flex justify-start items-center px-[10px] py-2 gap-[5px]", 
-        border,
+        themeColorClass,
       )}
       onClick={handleFormButtonClick}
     >
       <div className="w-5 h-5">
-        <IconFormCheck color={icon} />
+        <FormCheckIcon color={buttonColor} />
       </div>
-      <p className={twMerge('text-[12px]', text)}>
+      <p className={twMerge('text-[12px]', textColorClass)}>
         {buttonText}
       </p>
     </button>

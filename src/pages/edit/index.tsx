@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { useNavigate } from 'react-router-dom';
 import EditPageHeader from '@/components/edit/EditPageHeader';
@@ -8,12 +8,20 @@ import QuestionBox from '@/components/edit/QuestionBox';
 
 export default function EditPage() {
   const [images, setImages] = useState<File[]>([]);
-  const [questions, setQuestions] = useState<string[]>([]);
+  const [text, setText] = useState<string>('');
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
   };
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  useEffect(() => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+      }
+    }, [text]);
+  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -49,6 +57,10 @@ export default function EditPage() {
           />
           <textarea
             name="content"
+            ref={textareaRef}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={1}
             autoFocus
             placeholder={
               "필요한 작업을 요청해보세요.\n\n" + 

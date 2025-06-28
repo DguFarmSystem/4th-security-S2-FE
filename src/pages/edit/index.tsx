@@ -70,7 +70,7 @@ export default function EditPage() {
             className={twMerge(
               "text-white text-xs font-normal w-full min-h-[154px] mt-3 whitespace-pre-line",
               "flex items-start justify-start focus:outline-none",
-              "placeholder:text-[#666] placeholder:font-normal pt-2 resize-none"
+              "placeholder:text-[#666] placeholder:font-normal pt-2 resize-none overflow-hidden"
             )}
           ></textarea>
           <ImageUploader images={images} setImages={setImages} />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import QuestionBoxInput from "@/components/edit/QuestionBoxInput";
 import IconXMark from "@/assets/icons/IconXMark.svg";
+import IconPlust from "@/assets/icons/IconPlus.svg";
 
 type QuestionType = {
   text: string;
@@ -31,6 +32,36 @@ export default function QuestionBox() {
           isRequired={question.isRequired}
         />
       ))}
+      <AddQuestion
+        questions={questions}
+        setQuestions={setQuestions}
+      />
     </div>
   );
 }
+
+function AddQuestion({
+  questions,
+  setQuestions,
+}: {
+  questions: QuestionType[];
+  setQuestions: (questions: QuestionType[]) => void;  
+}) {
+  return (
+    <button
+      onClick={(e) => {
+        e.preventDefault();
+        setQuestions([
+          ...questions,
+          { text: "", isRequired: false },
+        ]);
+      }}
+      className="flex w-full justify-center items-center bg-[#4A4A4A] rounded-[5px] mb-[6px] h-[28px]"
+    >
+      <img src={IconPlust} alt="Add" className="w-[15px] h-[15px] mr-[4px]" />
+      <p className="text-[10px] text-[#BCBCBD]">
+        항목 추가
+      </p>
+    </button>
+  );
+};

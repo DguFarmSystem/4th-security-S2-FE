@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import EditPageHeader from '@/components/edit/EditPageHeader';
 import EditPageFooter from '@/components/edit/EditPageFooter';
 import ImageUploader from '@/components/edit/ImageUploader';
+import QuestionBox from '@/components/edit/QuestionBox';
 
 export default function EditPage() {
   const [images, setImages] = useState<File[]>([]);
+  const [questions, setQuestions] = useState<string[]>([]);
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
@@ -60,6 +62,9 @@ export default function EditPage() {
             )}
           ></textarea>
           <ImageUploader images={images} setImages={setImages} />
+          <div className="mt-10 w-full">
+            <QuestionBox /> 
+          </div>
         </div>
         {/* 
           * 글쓰기 페이지 푸터
@@ -72,7 +77,6 @@ export default function EditPage() {
           />
         </div>
       </form>
-
     </div>
   );
 }

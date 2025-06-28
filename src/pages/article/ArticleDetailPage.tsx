@@ -85,7 +85,7 @@ export default function ArticleDetailPage() {
         
         {/* 내용 */}
         <div className="w-full flex flex-col items-center justify-between pb-3.5">
-          <p className="text-xs leading-5 w-full min-h-[68px] pt-4">{data.content}</p>
+          <p className="font-base text-xs leading-5 w-full min-h-[68px] pt-4">{data.content}</p>
 
           <FormButton
             formStatus="임시저장"

@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
-import { createPortal } from 'react-dom'
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { twMerge } from 'tailwind-merge';
 
 interface BottomSheetProps {
   open: boolean
@@ -40,28 +41,28 @@ export default function BottomSheet({
   return createPortal(
     <div
       aria-hidden={!open}
-      className={`
-        fixed inset-0 z-50 flex flex-col
-        ${open ? 'pointer-events-auto' : 'pointer-events-none'}
-      `}
+      className={twMerge(
+        "fixed inset-0 z-50 flex flex-col items-center",
+        open ? 'pointer-events-auto' : 'pointer-events-none'
+      )}
     >
       {/* 오버레이 */}
       <div
         onClick={onClose}
-        className={`
-          absolute inset-0 bg-black transition-opacity duration-300
-          ${open ? 'opacity-50' : 'opacity-0'}
-        `}
+        className={twMerge(
+          "absolute inset-0 bg-black transition-opacity duration-300",
+          open ? 'opacity-50' : 'opacity-0'
+        )}
       />
       {/* 시트 */}
       <section
-        className={`
-          relative mt-auto w-full max-h-[80vh] overflow-y-auto
-          bg-white dark:bg-neutral-800 rounded-t-2xl shadow-lg
-          transition-transform duration-300
-          ${open ? 'translate-y-0' : 'translate-y-full'}
-          ${className}
-        `}
+        className={twMerge(
+          "relative mt-auto w-full max-h-[80vh] overflow-y-auto max-w-sm",
+          "bg-white dark:bg-neutral-800 rounded-t-2xl shadow-lg",
+          "transition-transform duration-300",
+          open ? 'translate-y-0' : 'translate-y-full',
+          className
+        )}
       >
         {children}
       </section>

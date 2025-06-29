@@ -3,7 +3,7 @@ import {
   useMutation,
   UseMutationOptions,
 } from '@tanstack/react-query';
-import { signUpApi } from '../index';
+import { signInApi } from '../index';
 import { PostKakaoSignUpRequestDto, PostKakaoSignUpResponseDto } from '../dto';
 
 /**
@@ -22,7 +22,7 @@ export const usePostKakaoSignUpMutation = (
 ) => {
   return useMutation({
     mutationFn: (data: PostKakaoSignUpRequestDto) =>
-      signUpApi.postKakaoSignUp(data),
+      signInApi.postKakaoSignUp(data),
     ...options,
   });
 };

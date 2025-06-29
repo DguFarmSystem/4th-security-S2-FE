@@ -6,9 +6,20 @@ import EditPageFooter from '@/components/edit/EditPageFooter';
 import ImageUploader from '@/components/edit/ImageUploader';
 import QuestionBox from '@/components/edit/QuestionBox';
 
+export type QuestionType = {
+  text: string;
+  isRequired: boolean;
+};
+
 export default function EditPage() {
   const [images, setImages] = useState<File[]>([]);
   const [text, setText] = useState<string>('');
+  const [questions, setQuestions] = useState<QuestionType[]>([
+    { text: "이름", isRequired: true },
+    { text: "연락처", isRequired: true },
+  ]);
+  const [isQuestionBoxOpen, setIsQuestionBoxOpen] = useState<boolean>(false);
+
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
@@ -74,9 +85,14 @@ export default function EditPage() {
             )}
           ></textarea>
           <ImageUploader images={images} setImages={setImages} />
-          <div className="mt-10 w-full">
-            <QuestionBox /> 
-          </div>
+          {isQuestionBoxOpen && (
+            <div className="mt-12 w-full">
+              <QuestionBox 
+                questions={questions} 
+                setQuestions={setQuestions}
+              /> 
+            </div>
+          )}
         </div>
         {/* 
           * 글쓰기 페이지 푸터
@@ -85,7 +101,7 @@ export default function EditPage() {
         <div className='w-full'>
           <EditPageFooter
             onImageUpload={() => (document.querySelector('input[type="file"]') as HTMLInputElement | null)?.click()}
-            onQuestionAdd={() => console.log('질문 추가')}
+            onQuestionAdd={() => (setIsQuestionBoxOpen(true))}
           />
         </div>
       </form>

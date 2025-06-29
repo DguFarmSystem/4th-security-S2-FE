@@ -1,19 +1,17 @@
-import { useState } from "react";
+import type { QuestionType } from "@/pages/edit";
 import QuestionBoxInput from "@/components/edit/QuestionBoxInput";
 import IconXMark from "@/assets/icons/IconXMark.svg";
 import IconPlust from "@/assets/icons/IconPlus.svg";
 
-type QuestionType = {
-  text: string;
-  isRequired: boolean;
-};
+interface IQuestionBoxProps {
+  questions: QuestionType[];
+  setQuestions: (questions: QuestionType[]) => void;
+}
 
-export default function QuestionBox() {
-  const [questions, setQuestions] = useState<QuestionType[]>([
-    { text: "이름", isRequired: true },
-    { text: "연락처", isRequired: true },
-  ]);
-
+export default function QuestionBox({
+  questions,
+  setQuestions,
+}: IQuestionBoxProps) {
   return (
     <div className="flex flex-col w-full rounded-[5px] bg-[#373737] px-[10px] pt-0 pb-4">
       <div className="flex items-center justify-between w-full h-[38px] p-[10px]">

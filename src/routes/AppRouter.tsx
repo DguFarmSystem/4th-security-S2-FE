@@ -22,6 +22,7 @@ import PublicRoute from './PublicRoute';
 import SplashGate from '@/components/landing/SplashGate';
 import ArticleDetailPage from '@/pages/article/ArticleDetailPage';
 import EditPage from '@/pages/edit';
+import FormPage from '@/pages/form';
 
 const createAuthRouter = (routeType: ROUTE_TYPE, children: RouteObject[]) => {
   const authRouter = children.map((child: RouteObject) => ({
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
           path: '/article/:id',
           element: <ArticleDetailPage />,
         },
+        {
+          path: '/form/:formId',
+          element: <FormPage />,
+        }
       ]),
       ...createAuthRouter('PRIVATE', [
         {

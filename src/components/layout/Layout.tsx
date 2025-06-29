@@ -18,7 +18,7 @@ export default function Layout({
       className={mergeClassNames(
         `flex ${direction === 'column' ? 'flex-col' : 'flex-row'} 
         ${fullScreen ? 'w-full max-w-none' : 'w-auto max-w-sm'} 
-        h-screen 
+        h-screen
         mx-auto my-0        
         bg-background
         `,

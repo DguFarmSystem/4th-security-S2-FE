@@ -1,17 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { useNavigate } from 'react-router-dom';
 import EditPageHeader from '@/components/edit/EditPageHeader';
 import EditPageFooter from '@/components/edit/EditPageFooter';
 import ImageUploader from '@/components/edit/ImageUploader';
+import QuestionBox from '@/components/edit/QuestionBox';
+
+export type QuestionType = {
+  text: string;
+  isRequired: boolean;
+};
 
 export default function EditPage() {
   const [images, setImages] = useState<File[]>([]);
+  const [text, setText] = useState<string>('');
+  const [questions, setQuestions] = useState<QuestionType[]>([
+    { text: "이름", isRequired: true },
+    { text: "연락처", isRequired: true },
+  ]);
+  const [isQuestionBoxOpen, setIsQuestionBoxOpen] = useState<boolean>(false);
+
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
   };
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  useEffect(() => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+      }
+    }, [text]);
+  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -47,6 +68,10 @@ export default function EditPage() {
           />
           <textarea
             name="content"
+            ref={textareaRef}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={1}
             autoFocus
             placeholder={
               "필요한 작업을 요청해보세요.\n\n" + 
@@ -56,10 +81,18 @@ export default function EditPage() {
             className={twMerge(
               "text-white text-xs font-normal w-full min-h-[154px] mt-3 whitespace-pre-line",
               "flex items-start justify-start focus:outline-none",
-              "placeholder:text-[#666] placeholder:font-normal pt-2 resize-none"
+              "placeholder:text-[#666] placeholder:font-normal pt-2 resize-none overflow-hidden"
             )}
           ></textarea>
           <ImageUploader images={images} setImages={setImages} />
+          {isQuestionBoxOpen && (
+            <div className="mt-12 w-full">
+              <QuestionBox 
+                questions={questions} 
+                setQuestions={setQuestions}
+              /> 
+            </div>
+          )}
         </div>
         {/* 
           * 글쓰기 페이지 푸터
@@ -68,11 +101,10 @@ export default function EditPage() {
         <div className='w-full'>
           <EditPageFooter
             onImageUpload={() => (document.querySelector('input[type="file"]') as HTMLInputElement | null)?.click()}
-            onQuestionAdd={() => console.log('질문 추가')}
+            onQuestionAdd={() => (setIsQuestionBoxOpen(true))}
           />
         </div>
       </form>
-
     </div>
   );
 }

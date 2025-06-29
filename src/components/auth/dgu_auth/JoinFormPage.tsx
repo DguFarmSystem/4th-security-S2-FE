@@ -4,6 +4,7 @@ import { PATH } from '@/constants/path';
 import { useAuthStore } from '@/stores/authStore';
 import DGUAuthLayout from './DGUAuthLayout';
 import JoinForm from './JoinForm';
+import { usePatchUserNicknameMutation } from '@/apis/auth/dgu_auth/mutations/mutationFn';
 
 interface JoinFormPageProps {
   onPrev: () => void;
@@ -18,14 +19,13 @@ interface FormValues {
 export default function JoinFormPage({ onPrev }: JoinFormPageProps) {
   const { setIsGuest, setIsUnivAuthenticated } = useAuthStore();
   const navigate = useNavigate();
-
-  const handleSubmit = (data: FormValues) => {
-    // 실제 회원가입 로직 필요
-    console.log(data);
-    setIsGuest(false);
-    setIsUnivAuthenticated(true);
-    navigate(PATH.ROOT);
-  };
+  const { mutate: patchUserNickname } = usePatchUserNicknameMutation({
+    onSuccess: () => {
+      setIsGuest(false);
+      setIsUnivAuthenticated(true);
+      navigate(PATH.ROOT);
+    },
+  });
 
   return (
     <DGUAuthLayout>
@@ -34,7 +34,13 @@ export default function JoinFormPage({ onPrev }: JoinFormPageProps) {
         onClick={onPrev}
       />
       <h1 className="text-4xl font-bold text-primary">회원가입</h1>
-      <JoinForm onSubmit={handleSubmit} />
+      <JoinForm
+        onSubmit={(data: FormValues) => {
+          patchUserNickname({
+            nickname: data.nickname,
+          });
+        }}
+      />
     </DGUAuthLayout>
   );
 }

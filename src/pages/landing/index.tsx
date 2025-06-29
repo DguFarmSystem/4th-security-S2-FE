@@ -9,8 +9,8 @@ import { motion } from 'framer-motion';
 import TabAll from '@/components/landing/tabs/TabAll';
 import TabTalentDonation from '@/components/landing/tabs/TabTalentDonation';
 import TabPaidWork from '@/components/landing/tabs/TabPaidWork';
-import { useModal } from '@/hooks/useModal';
-import Modal from '@/components/common/modal/Modal';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 const TabKey = {
   TAB_ALL: 'TAB_ALL',
@@ -19,6 +19,7 @@ const TabKey = {
 } as const;
 
 export default function LandingPage() {
+  const navigate = useNavigate();
   const { TabsList, TabTrigger, TabsContainer, TabContent } = useTab<
     keyof typeof TabKey
   >(TabKey.TAB_ALL);
@@ -62,28 +63,31 @@ export default function LandingPage() {
   );
 
   function BottomMenu() {
-    /* 아래 모달의 경우는 1차적으로 디자인 내용 확인을 위해 넣은 모달입니다. (추후 로직에 따라 수정될 예정입니다.) */
-    const { isOpen, openModal, closeModal } = useModal();
     const BOTTOM_MENU = [
       {
         Icon: IconMenuHeart,
         label: '찜한 글',
+        onClickPath: PATH.ROOT,
       },
       {
         Icon: IconMenuPen,
         label: '글 작성',
+        onClickPath: PATH.ROOT,
       },
       {
         Icon: IconMenuHome,
         label: '홈',
+        onClickPath: PATH.ROOT,
       },
       {
         Icon: IconMenuGroupAuth,
         label: '그룹 인증',
+        onClickPath: PATH.ROOT,
       },
       {
         Icon: IconMenuProfile,
         label: 'MY',
+        onClickPath: PATH.ROOT,
       },
     ];
     return (
@@ -93,22 +97,13 @@ export default function LandingPage() {
             <div
               key={menu.label}
               className="flex flex-col items-center cursor-pointer"
-              onClick={openModal}
+              onClick={() => navigate(menu.onClickPath)}
             >
               <menu.Icon className="size-6" />
               <span className="text-sm">{menu.label}</span>
             </div>
           ))}
         </div>
-        <Modal isOpen={isOpen} onClose={closeModal}>
-          <div className="w-full h-full bg-gray-700 flex flex-col items-center justify-center rounded-xl">
-            <h3>아직 열리지 않은 기능이에요.</h3>
-            <h3>더 좋은 모습으로 곧 찾아올게요!</h3>
-            <button onClick={closeModal} className="mt-5 underline">
-              확인
-            </button>
-          </div>
-        </Modal>
       </>
     );
   }

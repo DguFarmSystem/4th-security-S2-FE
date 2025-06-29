@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/common/input/Input';
 import Button from '@/components/common/button/Button';
 import { verificationCodeFormatTime } from '@/utils/formatTime';
+import {
+  usePostRequestEmailMutation,
+  usePostVerifyEmailMutation,
+} from '@/apis/auth/dgu_auth/mutations/mutationFn';
 
 interface JoinFormProps {
   onSubmit: (data: FormValues) => void;
@@ -15,7 +19,7 @@ interface FormValues {
 }
 
 const EMAIL_REGEX = /^[A-Z0-9._%+-]+@(dgu\.edu|dgu\.ac\.kr)$/i;
-const VERIFICATION_TIME_SECONDS = 3 * 60;
+const VERIFICATION_TIME_SECONDS = 5 * 60;
 
 export default function JoinForm({ onSubmit }: JoinFormProps) {
   const [formStatus, setFormStatus] = useState({
@@ -26,6 +30,28 @@ export default function JoinForm({ onSubmit }: JoinFormProps) {
   });
   const showVerificationCode =
     formStatus.isEmailVerificationSent && !formStatus.isEmailVerified;
+
+  const { mutate: postRequestEmail } = usePostRequestEmailMutation({
+    onSuccess: () => {
+      setFormStatus((prev) => ({
+        ...prev,
+        isEmailVerificationSent: true,
+        isEmailVerified: false,
+        remainingTime: VERIFICATION_TIME_SECONDS,
+        isTimerActive: true,
+      }));
+    },
+  });
+  const { mutate: postVerifyEmail } = usePostVerifyEmailMutation({
+    onSuccess: () => {
+      clearErrors('verificationCode');
+      setFormStatus((prev) => ({
+        ...prev,
+        isTimerActive: false,
+        isEmailVerified: true,
+      }));
+    },
+  });
 
   const {
     register,
@@ -68,7 +94,7 @@ export default function JoinForm({ onSubmit }: JoinFormProps) {
 
   return (
     <form
-      onSubmit={handleSubmit(handleDguAuth)}
+      onSubmit={handleSubmit(handleJoinUser)}
       className="w-full h-full mt-10 flex flex-col"
     >
       <Input
@@ -178,7 +204,8 @@ export default function JoinForm({ onSubmit }: JoinFormProps) {
     </form>
   );
 
-  function handleDguAuth(data: FormValues) {
+  // 가입하고 시작하기
+  function handleJoinUser(data: FormValues) {
     if (!formStatus.isEmailVerificationSent) {
       setError('email', {
         message: '이메일 인증을 진행해주세요',
@@ -195,6 +222,7 @@ export default function JoinForm({ onSubmit }: JoinFormProps) {
     onSubmit(data);
   }
 
+  // 이메일 인증 요청
   function handleVerifyEmail() {
     const userEmail = watch('email');
     if (!EMAIL_REGEX.test(userEmail)) {
@@ -205,17 +233,13 @@ export default function JoinForm({ onSubmit }: JoinFormProps) {
     }
     clearErrors('email');
     clearErrors('verificationCode');
-    setFormStatus((prev) => ({
-      ...prev,
-      isEmailVerificationSent: true,
-      remainingTime: VERIFICATION_TIME_SECONDS,
-      isEmailVerified: false,
-      isTimerActive: true,
-    }));
 
-    // 실제 이메일 인증번호 발송 API 호출 필요
+    postRequestEmail({
+      email: userEmail,
+    });
   }
 
+  // 인증 코드 확인
   function handleVerifyCode() {
     const code = watch('verificationCode');
     if (!code) {
@@ -232,12 +256,9 @@ export default function JoinForm({ onSubmit }: JoinFormProps) {
       return;
     }
 
-    // 실제 인증번호 확인 API 호출 필요 및 성공시 아래 로직 수행
-    clearErrors('verificationCode');
-    setFormStatus((prev) => ({
-      ...prev,
-      isTimerActive: false,
-      isEmailVerified: true,
-    }));
+    postVerifyEmail({
+      email: watch('email'),
+      code,
+    });
   }
 }

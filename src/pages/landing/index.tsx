@@ -72,7 +72,7 @@ export default function LandingPage() {
       {
         Icon: IconMenuPen,
         label: '글 작성',
-        onClickPath: PATH.ROOT,
+        onClickPath: PATH.EDIT,
       },
       {
         Icon: IconMenuHome,

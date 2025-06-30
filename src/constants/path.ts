@@ -9,4 +9,7 @@ export const PATH = {
   SIGN_IN: '/sign_in',
   DGU_AUTHENTICATION: '/dgu_authentication',
   OAUTH_CALLBACK: (provider: OAuthProvider) => `/oauth/${provider}/callback`,
+  ARTICLE_DETAIL: (id: string) => `/article/${id}`,
+  FORM: (formId: string) => `/form/${formId}`,
+  EDIT: '/edit',
 } as const;

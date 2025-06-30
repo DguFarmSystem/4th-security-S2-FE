@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import PortfoiloImage from "@/assets/images/PortfolioImage.webp";
 import ImageCarousel from "@/components/article/image/ImageCarousel";
 import FormButton from "@/components/article/FormButton";
@@ -38,6 +39,9 @@ export default function ArticleDetailPage() {
   const [data, setData] = useState<typeof dummyData | null>(null);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
   const [heartCount, setHeartCount] = useState(dummyData.likeCount);  
+
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     setData(dummyData);
@@ -89,9 +93,7 @@ export default function ArticleDetailPage() {
 
           <FormButton
             formStatus="임시저장"
-            handleFormButtonClick={() => {
-              console.log("신청하기 버튼 클릭");
-            }}
+            handleFormButtonClick={() => {navigate(`/form/${id}`);}}
           />
         </div>
 

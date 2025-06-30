@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import IconCertified from '@/assets/icons/IconCertified.svg?react';
 import IconMenuHeart from '@/assets/icons/IconMenuHeart.svg?react';
 import IconComment from '@/assets/icons/IconComment.svg?react';
@@ -49,11 +50,12 @@ const TAG_COLORS = {
 export default function TabAll() {
   const ARTICLE_HOVER_SCALE = 1.01;
   const ARTICLE_HOVER_DURATION = 0.2;
+  const navigate = useNavigate();
 
   return (
     <>
       {DUMMY_DATA.map((item) => (
-        <Article key={item.id}>
+        <Article key={item.id} id={item.id}>
           <ArticleImage src="https://picsum.photos/200/300" />
           <ArticleContent>
             <ArticleWriter
@@ -72,7 +74,7 @@ export default function TabAll() {
     </>
   );
 
-  function Article({ children }: { children: React.ReactNode }) {
+  function Article({ children, id }: { children: React.ReactNode; id: number }) {
     return (
       <motion.div
         className="flex gap-4 border-b border-b-gray-50/20 py-4 w-full last:border-b-0 cursor-pointer"
@@ -82,6 +84,7 @@ export default function TabAll() {
         transition={{
           duration: ARTICLE_HOVER_DURATION,
         }}
+        onClick={() => navigate(`/article/${id}`)}
       >
         {children}
       </motion.div>

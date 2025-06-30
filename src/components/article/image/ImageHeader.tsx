@@ -52,7 +52,7 @@ export default function ImageHeader({ isEditable = false }: IImageHeaderProps) {
       <MenuModal
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        onEdit={() => console.log("Edit clicked")}
+        onEdit={() => navigate(`/edit`)}
         onDelete={() => console.log("Delete clicked")}
         position={menuPosition}
       />
